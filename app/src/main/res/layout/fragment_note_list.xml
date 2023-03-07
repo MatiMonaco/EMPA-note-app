@@ -17,6 +17,7 @@
         android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewNoteList"
         android:layout_width="409dp"
         android:layout_height="657dp"
         android:clipToPadding="false"
