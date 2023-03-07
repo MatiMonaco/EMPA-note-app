@@ -6,7 +6,7 @@ public class Note {
 
     private static final int NOTE_TITLE_MAX_LENGTH = 250;
     private static final int NOTE_TEXT_MAX_LENGTH = 1500;
-    private Long userId;
+    private Long id;
     private String title;
     private String text;
     private Date createdAt;
@@ -14,20 +14,20 @@ public class Note {
 
     public Note(){}
 
-    public Note(Long userId, String title, String text, Date createdAt, Date updatedAt) {
-        this.userId = userId;
+    public Note(Long id, String title, String text, Date createdAt, Date updatedAt) {
+        this.id = id;
         this.title = title;
         this.text = text;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {

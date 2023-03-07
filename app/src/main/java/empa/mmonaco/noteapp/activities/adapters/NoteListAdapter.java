@@ -6,12 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 import empa.mmonaco.noteapp.R;
+import empa.mmonaco.noteapp.activities.NoteListFragment;
 import empa.mmonaco.noteapp.databinding.NoteListItemBinding;
 import empa.mmonaco.noteapp.models.Note;
 
@@ -37,6 +39,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
             }
 
             openNote(position);
+
         });
 
 
@@ -52,6 +55,11 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
     @Override
     public int getItemCount() {
         return noteList.size();
+    }
+
+    public void setData(List<Note> noteList){
+        this.noteList = noteList;
+        notifyDataSetChanged();
     }
 
     public void openNote(final int position){

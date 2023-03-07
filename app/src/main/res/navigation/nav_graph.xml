@@ -12,17 +12,34 @@
         tools:layout="@layout/fragment_note_list">
 
         <action
+            android:id="@+id/action_NoteListFragment_to_NoteViewFragment"
+            app:destination="@id/NoteViewFragment" />
+        <action
             android:id="@+id/action_NoteListFragment_to_AddNoteFragment"
             app:destination="@id/AddNoteFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/AddNoteFragment"
         android:name="empa.mmonaco.noteapp.activities.AddNoteFragment"
-        android:label="@string/add_note_fragment_label"
+        android:label="@string/note_list_fragment_label"
         tools:layout="@layout/fragment_add_note">
 
         <action
             android:id="@+id/action_AddNoteFragment_to_NoteListFragment"
             app:destination="@id/NoteListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/NoteViewFragment"
+        android:name="empa.mmonaco.noteapp.activities.NoteViewFragment"
+        android:label="@string/note_view_fragment_label"
+        tools:layout="@layout/fragment_note_view">
+
+        <action
+            android:id="@+id/action_NoteViewFragment_to_NoteListFragment"
+            app:destination="@id/NoteListFragment" />
+        <argument
+            android:name="noteId"
+            app:argType="long" />
     </fragment>
 </navigation>

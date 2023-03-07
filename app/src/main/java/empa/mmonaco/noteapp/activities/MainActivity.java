@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import empa.mmonaco.noteapp.R;
 import empa.mmonaco.noteapp.databinding.ActivityMainBinding;
+import empa.mmonaco.noteapp.models.NoteListViewModel;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+
+    private NoteListViewModel noteListViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
 
     }
 
