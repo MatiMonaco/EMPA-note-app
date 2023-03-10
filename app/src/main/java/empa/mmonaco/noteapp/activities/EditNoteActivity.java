@@ -27,6 +27,7 @@ public class EditNoteActivity extends AppCompatActivity {
         viewModel = NoteViewModel.get(this);
         binding = ActivityEditNoteBinding.inflate(getLayoutInflater());
         binding.setViewModel(viewModel);
+        binding.setLifecycleOwner(this);
         binding.buttonSave.setOnClickListener(v->onSaveClicked());
 
         Intent args = getIntent();
@@ -39,8 +40,6 @@ public class EditNoteActivity extends AppCompatActivity {
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         viewModel.loadNote(noteId);
-        System.out.println("TITLE: "+ binding.editTextInputNoteTitle.getText());
-
     }
 
     @Override

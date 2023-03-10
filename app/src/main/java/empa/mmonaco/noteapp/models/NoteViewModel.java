@@ -41,6 +41,7 @@ public class NoteViewModel extends ViewModel {
             Note note = noteDb.toModel();
             System.out.println("LOADED NOTE: "+note);
             id = note.getId();
+            System.out.println("NOTE TITLE ASD: "+note.getTitle());
             title.postValue(note.getTitle());
             body.postValue(note.getBody());
             createdAt = note.getCreatedAt();
