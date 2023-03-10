@@ -3,12 +3,19 @@
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="note_list_fragment_label">Notes</string>
-    <string name="note_view_fragment_label">Edit note</string>
+    <string name="edit_note_activity_label">Edit note</string>
     <string name="add_note_fragment_label">Add note</string>
-    <string name="note_title_hint">Title</string>
-    <string name="note_body_hint">Body</string>
+
     <string name="note_text_placeholder">Not a very interesting note…</string>
 
     <string name="empty_note_list_fragment">Press the + button to add a new note.</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="button_add">Add</string>
+    <string name="button_save">Save</string>
+
+
+    <string name="note_title_hint">Title</string>
+    <string name="note_body_hint">Body</string>
+    <string name="note_created_at">Created at</string>
+    <string name="note_updated_at">Updated at</string>
 </resources>

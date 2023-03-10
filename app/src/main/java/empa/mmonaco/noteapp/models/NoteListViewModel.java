@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import empa.mmonaco.noteapp.db.NoteDb;
 import empa.mmonaco.noteapp.db.NotesDatabase;
@@ -18,16 +20,23 @@ public class NoteListViewModel extends ViewModel {
 
     private final NotesDatabase db;
 
+    ExecutorService executor = Executors.newSingleThreadExecutor();
+
     public NoteListViewModel(NotesDatabase db){
         this.db = db;
     }
 
     public static NoteListViewModel get(FragmentActivity activity) {
+        System.out.println("GET NOTE LIST VIEW MODEL");
         return new ViewModelProvider(activity, new Factory(activity)).get(NoteListViewModel.class);
     }
 
     public void addNewNote(@NonNull Note note){
-        db.noteListDao().insert(new NoteDb(note));
+        executor.execute(()->{
+            System.out.println("INSERTING INTO DB NOTE WITH ID: "+note.getId());
+            db.noteListDao().insert(new NoteDb(note));
+        });
+
     }
 
     public LiveData<List<Note>> getNoteList(){
@@ -57,7 +66,7 @@ public class NoteListViewModel extends ViewModel {
         @NonNull
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-
+            System.out.println("NOTE LIST FACTORY CREATE");
             return (T) new NoteListViewModel(NotesDatabase.getInstance(context));
         }
     }

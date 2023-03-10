@@ -30,17 +30,13 @@ public class AddNoteFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = NoteListViewModel.get(getActivity());
+        viewModel = NoteListViewModel.get(requireActivity());
+
 
     }
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAddNoteBinding.inflate(inflater, container, false);
-
         return binding.getRoot();
 
     }
@@ -69,8 +65,10 @@ public class AddNoteFragment extends Fragment {
 
         String noteTitle = titleInput.getText() != null ? titleInput.getText().toString() : defaultTitle();
         String noteBody = bodyInput.getText() != null ? bodyInput.getText().toString() : defaultBody();
-        viewModel.addNewNote(new Note(null,noteTitle,noteBody,new Date(),new Date()));
+        System.out.println("add has observers: "+viewModel.getNoteList().hasObservers());
         System.out.println("ADDING NOTE");
+        viewModel.addNewNote(new Note(null,noteTitle,noteBody,new Date(),new Date()));
+
     }
 
     private String defaultTitle(){

@@ -30,7 +30,7 @@ public interface NoteListDao {
     @Query("SELECT * FROM " + NoteDb.TABLE_NAME + " where id = :id")
     NoteDb findNoteById(@NonNull Long id);
 
-    @Query("SELECT * FROM "+ NoteDb.TABLE_NAME + " ORDER BY createdAt ASC")
+    @Query("SELECT id,title,createdAt,updatedAt FROM "+ NoteDb.TABLE_NAME + " ORDER BY createdAt ASC")
     LiveData<List<Note>> findNotes();
 
     @Query("SELECT COUNT(*) FROM " + NoteDb.TABLE_NAME)

@@ -14,9 +14,9 @@ public abstract class NotesDatabase extends RoomDatabase{
     private static NotesDatabase notesDatabase;
 
     public static NotesDatabase getInstance(Context applicationContext) {
-
+        System.out.println("DATABASE GET INSTANCE");
         if(notesDatabase == null){
-            System.out.println("notes database instance");
+            System.out.println("CREATING DATABASE");
             notesDatabase = Room.databaseBuilder(applicationContext,
                     NotesDatabase.class,"notesDb").build();
         }

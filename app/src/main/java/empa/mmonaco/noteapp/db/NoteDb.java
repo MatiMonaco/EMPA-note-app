@@ -23,7 +23,7 @@ public class NoteDb {
     @NonNull
     private String title;
 
-    private String text;
+    private String body;
 
     @NonNull
     private Date createdAt;
@@ -37,13 +37,13 @@ public class NoteDb {
     public NoteDb(Note model) {
         this.id = model.getId();
         this.title = model.getTitle();
-        this.text = model.getText();
+        this.body = model.getBody();
         this.createdAt = model.getCreatedAt();
         this.updatedAt = model.getUpdatedAt();
     }
 
     public Note toModel(){
-       return new Note(id,title,text,createdAt,updatedAt);
+       return new Note(id,title,body,createdAt,updatedAt);
     }
 
     @NonNull
@@ -64,12 +64,12 @@ public class NoteDb {
         this.title = title;
     }
 
-    public String getText() {
-        return text;
+    public String getBody() {
+        return body;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     @NonNull

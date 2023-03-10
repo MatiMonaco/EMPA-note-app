@@ -5,8 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
-    tools:context=".activities.NoteViewFragment">
+    android:paddingHorizontal="10dp"
+    android:paddingTop="10dp"
+    android:weightSum="16"
+    tools:context=".activities.AddNoteFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -17,41 +19,47 @@
             android:id="@+id/textInputNoteTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/note_title_hint"
             android:gravity="start|top"
+            android:hint="@string/note_title_hint"
             android:singleLine="true"
             android:textAlignment="viewStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="20sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-
-        android:background="@android:color/darker_gray" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="start|top">
+        android:layout_height="0dp"
+        android:gravity="start|top"
+        android:layout_weight="15"
+        android:layout_marginTop="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputNoteBody"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start|top"
+            android:layout_height="match_parent"
+            android:gravity="top|start"
             android:hint="@string/note_body_hint"
-            android:textAlignment="viewStart"
+            android:scrollbars="vertical"
+            android:textIsSelectable="true"
+            android:minLines="5"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            />
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/buttonAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add" />
+        android:text="@string/button_add"
+        android:layout_gravity="bottom"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        />
+
+
 
 
 </LinearLayout>

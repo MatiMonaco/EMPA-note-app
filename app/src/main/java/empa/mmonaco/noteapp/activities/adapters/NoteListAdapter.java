@@ -1,19 +1,14 @@
 package empa.mmonaco.noteapp.activities.adapters;
 
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.text.SimpleDateFormat;
 import java.util.List;
-
 import empa.mmonaco.noteapp.R;
-import empa.mmonaco.noteapp.activities.NoteListFragment;
+import empa.mmonaco.noteapp.activities.NoteListActionListener;
 import empa.mmonaco.noteapp.databinding.NoteListItemBinding;
 import empa.mmonaco.noteapp.models.Note;
 
@@ -21,8 +16,11 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
 
     private List<Note> noteList;
 
-    public NoteListAdapter(List<Note> noteList) {
+    private final NoteListActionListener noteListActionListener;
+
+    public NoteListAdapter(List<Note> noteList,NoteListActionListener noteListActionListener) {
         this.noteList = noteList;
+        this.noteListActionListener = noteListActionListener;
     }
 
     @NonNull
@@ -41,8 +39,6 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
             openNote(position);
 
         });
-
-
         return viewHolder;
     }
 
@@ -68,9 +64,10 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
         }
         Note note = noteList.get(position);
         System.out.println("Opening NOTE #"+position);
-        System.out.println("Title: "+note.getText());
+        System.out.println("Title: "+note.getTitle());
         System.out.println("Created at: "+note.getCreatedAt());
         System.out.println("Updated at: "+note.getUpdatedAt());
+        noteListActionListener.onNoteClicked(note);
     }
 
     public static class NoteViewHolder extends RecyclerView.ViewHolder{
@@ -92,7 +89,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
 
             if (createdString != null) {
                 binding.textViewNoteCreated.setVisibility(View.VISIBLE);
-                binding.textViewNoteCreated.setText(createdString);
+                binding.textViewNoteCreated.setText(String.format("%s: %s",R.string.note_created_at,createdString));
             } else {
                 binding.textViewNoteCreated.setText("");
                 binding.textViewNoteCreated.setVisibility(View.GONE);
@@ -108,7 +105,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
 
             if (updatedString != null) {
                 binding.textViewNoteUpdated.setVisibility(View.VISIBLE);
-                binding.textViewNoteUpdated.setText(updatedString);
+                binding.textViewNoteUpdated.setText(String.format("%s: %s",R.string.note_updated_at,updatedString));
             } else {
                 binding.textViewNoteUpdated.setText("");
                 binding.textViewNoteUpdated.setVisibility(View.GONE);

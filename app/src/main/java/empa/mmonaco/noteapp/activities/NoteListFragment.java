@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -12,7 +13,6 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.Collections;
-import java.util.Queue;
 
 import empa.mmonaco.noteapp.R;
 import empa.mmonaco.noteapp.activities.adapters.NoteListAdapter;
@@ -20,7 +20,9 @@ import empa.mmonaco.noteapp.databinding.FragmentNoteListBinding;
 import empa.mmonaco.noteapp.models.Note;
 import empa.mmonaco.noteapp.models.NoteListViewModel;
 
-public class NoteListFragment extends Fragment {
+public class NoteListFragment extends Fragment implements NoteListActionListener {
+
+
 
     private FragmentNoteListBinding binding;
 
@@ -28,44 +30,43 @@ public class NoteListFragment extends Fragment {
 
     private NoteListViewModel viewModel;
 
+    private final ActivityResultLauncher<Long> actionEditNote = registerForActivityResult(
+            new EditNoteActivity.Contract(),
+            this::onEditNoteActivityReceived
+    );
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        System.out.println("NOTE LIST ON CREATE");
         super.onCreate(savedInstanceState);
-        viewModel = NoteListViewModel.get(getActivity());
+        viewModel = NoteListViewModel.get(requireActivity());
         System.out.println(viewModel.getNoteList());
-        viewModel.getNoteList().observe(this,notes -> {
-            adapter.setData(notes);
-            refreshView(!notes.isEmpty());
-            System.out.println("NOTES CHANGED: "+notes);
-        });
+        System.out.println("list has observers: "+viewModel.getNoteList().hasObservers());
+        adapter = new NoteListAdapter(Collections.emptyList(),this);
 
     }
 
-
-
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        System.out.println("NOTE LIST ON CREATE VIEW");
         binding = FragmentNoteListBinding.inflate(inflater, container, false);
-
         return binding.getRoot();
 
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        binding.fab.setOnClickListener(view1 -> NavHostFragment.findNavController(NoteListFragment.this)
-                .navigate(R.id.action_NoteListFragment_to_AddNoteFragment));
-
+        System.out.println("NOTE LIST ON VIEW CREATED");
         binding.recyclerViewNoteList.setHasFixedSize(true);
         binding.recyclerViewNoteList.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        adapter = new NoteListAdapter(Collections.emptyList());
+        binding.fab.setOnClickListener(view1 -> NavHostFragment.findNavController(NoteListFragment.this)
+                .navigate(R.id.action_NoteListFragment_to_AddNoteFragment));
         binding.recyclerViewNoteList.setAdapter(adapter);
-
+        viewModel.getNoteList().observe(this,notes -> {
+            adapter.setData(notes);
+            refreshView(!notes.isEmpty());
+            System.out.println("NOTES CHANGED: "+notes);
+        });
     }
 
     private void refreshView(boolean notesFound) {
@@ -80,4 +81,15 @@ public class NoteListFragment extends Fragment {
         binding = null;
     }
 
+    @Override
+    public void onNoteClicked(@NonNull Note note) {
+        System.out.println("NOTE :"+note.getId() +" clicked");
+        actionEditNote.launch(note.getId());
+//        NavHostFragment.findNavController(NoteListFragment.this)
+//                .navigate(R.id.action_NoteListFragment_to_EditNoteFragment,bundle);
+    }
+
+    public void onEditNoteActivityReceived(@NonNull Integer resultCode){
+        System.out.println("EDITING NOTE RESUTLED WITH RESULT CODE: "+resultCode);
+    }
 }
