@@ -34,6 +34,11 @@ public class NoteDb {
     }
 
     @Ignore
+    public NoteDb(@NonNull Long id) {
+        this.id = id;
+    }
+
+    @Ignore
     public NoteDb(Note model) {
         this.id = model.getId();
         this.title = model.getTitle();

@@ -9,10 +9,11 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    tools:context=".activities.NoteListFragment">
+    tools:context=".activities.NoteListFragment"
+    >
 
     <TextView
-        android:id="@+id/textViewEmptyNotes"
+        android:id="@+id/text_view_empty_notes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/empty_note_list_fragment"
@@ -21,13 +22,13 @@
         android:visibility="visible"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewNoteList"
+        android:id="@+id/recycler_view_note_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
+
         android:paddingBottom="8dp"
+
         tools:listitem="@layout/note_list_item"
         android:visibility="gone"/>
 

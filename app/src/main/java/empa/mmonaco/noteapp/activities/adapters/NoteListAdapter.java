@@ -75,6 +75,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = NoteListItemBinding.bind(itemView);
+
         }
         public void bind(Note note) {
 
@@ -89,7 +90,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
 
             if (createdString != null) {
                 binding.textViewNoteCreated.setVisibility(View.VISIBLE);
-                binding.textViewNoteCreated.setText(String.format("%s: %s",R.string.note_created_at,createdString));
+                binding.textViewNoteCreated.setText(createdString);
             } else {
                 binding.textViewNoteCreated.setText("");
                 binding.textViewNoteCreated.setVisibility(View.GONE);
@@ -105,7 +106,8 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
 
             if (updatedString != null) {
                 binding.textViewNoteUpdated.setVisibility(View.VISIBLE);
-                binding.textViewNoteUpdated.setText(String.format("%s: %s",R.string.note_updated_at,updatedString));
+
+                binding.textViewNoteUpdated.setText(updatedString);
             } else {
                 binding.textViewNoteUpdated.setText("");
                 binding.textViewNoteUpdated.setVisibility(View.GONE);

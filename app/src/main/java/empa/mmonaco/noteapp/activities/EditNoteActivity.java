@@ -4,19 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import empa.mmonaco.noteapp.databinding.ActivityEditNoteBinding;
-import empa.mmonaco.noteapp.models.Note;
 import empa.mmonaco.noteapp.models.NoteViewModel;
 
 public class EditNoteActivity extends AppCompatActivity {
 
     public static final String PARAM_EDIT_NOTE = "editNoteId";
+
     private ActivityEditNoteBinding binding;
     private NoteViewModel viewModel;
 
@@ -26,9 +24,13 @@ public class EditNoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         viewModel = NoteViewModel.get(this);
         binding = ActivityEditNoteBinding.inflate(getLayoutInflater());
-        binding.setViewModel(viewModel);
-        binding.setLifecycleOwner(this);
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.editToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         binding.buttonSave.setOnClickListener(v->onSaveClicked());
+        binding.buttonDelete.setOnClickListener(v->onDeleteClicked());
 
         Intent args = getIntent();
         noteId = args.getLongExtra(PARAM_EDIT_NOTE,-1);
@@ -39,7 +41,16 @@ public class EditNoteActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        viewModel.getTitle().observe(this, title->{
+            System.out.println("TITLE CHANGED: "+title);
+            binding.editTextInputNoteTitle.setText(title);
+        });
+        viewModel.getBody().observe(this, body->{
+            System.out.println("BODY CHANGED: "+body);
+            binding.exitTextInputNoteBody.setText(body);
+        });
         viewModel.loadNote(noteId);
+
     }
 
     @Override
@@ -48,13 +59,21 @@ public class EditNoteActivity extends AppCompatActivity {
         binding = null;
     }
 
+    private void onDeleteClicked(){
+        System.out.println("ON DELETE CLICKED");
+        viewModel.deleteNote();
+        finish();
+    }
+
     private void onSaveClicked(){
-        System.out.println("SAVING CLICKED");
+        System.out.println("ON SAVE CLICKED");
 
         // Verify fields
-
+        String newTitle = binding.editTextInputNoteTitle.getText() == null ? viewModel.getTitle().getValue() : binding.editTextInputNoteTitle.getText().toString();
+        String newBody = binding.exitTextInputNoteBody.getText() == null ? viewModel.getBody().getValue() : binding.exitTextInputNoteBody.getText().toString();
         //Save into DB
-        viewModel.saveNote();
+
+        viewModel.saveNote(newTitle,newBody);
         // Return result
         setResult(Activity.RESULT_OK);
         finish();
@@ -74,7 +93,4 @@ public class EditNoteActivity extends AppCompatActivity {
            return resultCode;
         }
     }
-
-
-
 }

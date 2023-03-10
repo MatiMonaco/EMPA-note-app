@@ -49,10 +49,19 @@ public class NoteViewModel extends ViewModel {
         });
     }
 
-    public void saveNote(){
+    public void saveNote(String newTitle, String newBody){
         executor.execute(()->{
             System.out.println("SAVING NOTE "+id);
-            db.noteListDao().update(new NoteDb(new Note(id, title.getValue(), body.getValue(), createdAt,new Date())));
+            Note newNote = new Note(id, newTitle, newBody, createdAt,new Date());
+            System.out.println("NEW NOTE: "+newNote);
+            db.noteListDao().update(new NoteDb(newNote));
+        });
+    }
+
+    public void deleteNote(){
+        System.out.println("DELETING NOTE");
+        executor.execute(()->{
+            db.noteListDao().delete(new NoteDb(id));
         });
     }
 

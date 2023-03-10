@@ -85,8 +85,6 @@ public class NoteListFragment extends Fragment implements NoteListActionListener
     public void onNoteClicked(@NonNull Note note) {
         System.out.println("NOTE :"+note.getId() +" clicked");
         actionEditNote.launch(note.getId());
-//        NavHostFragment.findNavController(NoteListFragment.this)
-//                .navigate(R.id.action_NoteListFragment_to_EditNoteFragment,bundle);
     }
 
     public void onEditNoteActivityReceived(@NonNull Integer resultCode){

@@ -9,7 +9,7 @@
     tools:context=".activities.NoteViewFragment">
 
     <TextView
-        android:id="@+id/textViewNoteTitle"
+        android:id="@+id/text_view_note_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -17,7 +17,6 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:padding="5dp"
-        android:text="Note title"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,18 +25,13 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-
-        android:background="@android:color/darker_gray" />
+        android:layout_height="1dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textViewNoteText"
-
-
+        android:id="@+id/text_view_note_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:boxBackgroundColor="#FBDD82"
         app:hintEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
