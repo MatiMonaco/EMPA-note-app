@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -68,12 +69,12 @@ public class AddNoteFragment extends Fragment {
     private void addNewNote(){
         System.out.println("ADDING NOTE");
         viewModel.addNewNote(new Note(null,defaultTitle(titleInput.toString()),defaultBody(bodyInput.toString()),new Date(),new Date()));
-
+        MessageUtils.showToast(getString(R.string.note_created),getContext());
     }
 
     private String defaultTitle(String title){
 
-        return title != null ? title: "Empty title";
+        return title != null ? (!TextUtils.isEmpty(title) ? title : "-" ): "-";
     }
 
     private String defaultBody(String body){

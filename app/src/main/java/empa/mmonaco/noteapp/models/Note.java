@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.room.Ignore;
 
 import java.util.Date;
 
@@ -19,6 +20,7 @@ public class Note implements Parcelable {
 
     public Note(){}
 
+    @Ignore
     public Note(Parcel in){
         this.id = in.readLong();
         this.title = in.readString();
@@ -29,6 +31,7 @@ public class Note implements Parcelable {
         this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
     }
 
+    @Ignore
     public Note(Long id, String title, String body, Date createdAt, Date updatedAt) {
         this.id = id;
         this.title = title;

@@ -24,7 +24,9 @@
             android:singleLine="true"
             android:textAlignment="viewStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="20sp" />
+            android:textSize="@dimen/title_text_size"
+            android:maxLength="100"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -44,7 +46,8 @@
             android:textIsSelectable="true"
             android:minLines="5"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="20sp"
+            android:textSize="@dimen/body_text_size"
+            android:maxLength="1500"
             />
     </com.google.android.material.textfield.TextInputLayout>
 

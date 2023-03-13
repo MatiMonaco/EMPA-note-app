@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import empa.mmonaco.noteapp.R;
 import empa.mmonaco.noteapp.databinding.ActivityEditNoteBinding;
 import empa.mmonaco.noteapp.models.NoteViewModel;
 
@@ -61,8 +65,12 @@ public class EditNoteActivity extends AppCompatActivity {
 
     private void onDeleteClicked(){
         System.out.println("ON DELETE CLICKED");
-        viewModel.deleteNote();
-        finish();
+        MessageUtils.showDialog("",getString(R.string.dialog_confirm_delete),()->{
+            viewModel.deleteNote();
+            MessageUtils.showToast(getString(R.string.note_deleted),getApplicationContext());
+            finish();
+        },EditNoteActivity.this);
+
     }
 
     private void onSaveClicked(){
@@ -76,6 +84,7 @@ public class EditNoteActivity extends AppCompatActivity {
         viewModel.saveNote(newTitle,newBody);
         // Return result
         setResult(Activity.RESULT_OK);
+        MessageUtils.showToast(getString(R.string.note_updated),getApplicationContext());
         finish();
     }
 

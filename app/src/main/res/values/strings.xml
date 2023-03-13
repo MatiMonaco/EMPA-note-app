@@ -18,4 +18,13 @@
     <string name="note_body_hint">Body</string>
     <string name="note_created_at">Created at</string>
     <string name="note_updated_at">Updated at</string>
+
+    <string name="note_created">Note created</string>
+    <string name="note_updated">Note updated</string>
+    <string name="note_deleted">Note deleted</string>
+
+    <string name="action_yes">Yes</string>
+    <string name="action_no">No</string>
+    <string name="dialog_confirm_delete">Are you sure you want to delete this note?</string>
+
 </resources>
