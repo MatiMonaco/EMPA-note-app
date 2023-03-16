@@ -33,6 +33,22 @@ android {
     dataBinding{
         enabled=true
     }
+
+    flavorDimensions "version"
+    productFlavors {
+        pro {
+            dimension "version"
+            applicationIdSuffix ".pro"
+            versionNameSuffix "-pro"
+        }
+        free {
+            dimension "version"
+            applicationIdSuffix ".free"
+            versionNameSuffix "-free"
+        }
+
+    }
+
 }
 
 dependencies {
